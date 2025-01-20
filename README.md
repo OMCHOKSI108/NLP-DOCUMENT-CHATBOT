@@ -110,6 +110,8 @@ Open the URL in your web browser.
 
 ---
 
+![SAMPLE INPUT OUTPUT](image.png)
+
 ## **File Structure**
 
 ```
