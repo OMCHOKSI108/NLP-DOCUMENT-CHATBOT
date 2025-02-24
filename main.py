@@ -10,6 +10,10 @@ import os
 from pyngrok import ngrok
 import threading
 from config import config   
+import pytesseract
+
+# Streamlit Cloud default location for Tesseract
+pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
  
 COHERE_API_KEY = config["COHERE_API_KEY"]   
