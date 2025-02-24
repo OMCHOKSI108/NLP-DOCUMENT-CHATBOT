@@ -7,45 +7,25 @@ from pptx import Presentation
 import pytesseract
 from PIL import Image
 import os
-import io
-import fitz  # PyMuPDF
 from pyngrok import ngrok
 import threading
-from fpdf import FPDF
-from config import config
+from config import config  # Import configuration
 
-# Streamlit Cloud default location for Tesseract
-pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
-
-COHERE_API_KEY = config["COHERE_API_KEY"]   
+# Initialize Cohere API
+COHERE_API_KEY = config["COHERE_API_KEY"]  # Fetch Cohere API key from config
 co = cohere.Client(COHERE_API_KEY)
 
-# Convert Image to PDF
-def image_to_pdf(image):
-    pdf = FPDF()
-    pdf.add_page()
-    
-    # Convert PIL Image to Bytes
-    img_bytes = io.BytesIO()
-    image.save(img_bytes, format="JPEG")
-    img_bytes = img_bytes.getvalue()
-    
-    pdf_path = "converted.pdf"
-    pdf.image(io.BytesIO(img_bytes), x=10, y=10, w=190)
-    pdf.output(pdf_path)
-    
-    return pdf_path
-
-# File parsers
+# File parsers (no changes here)
 def read_txt(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         return file.read()
 
 def read_pdf(file_path):
     content = ""
-    with fitz.open(file_path) as doc:
-        for page in doc:
-            content += page.get_text("text")
+    with open(file_path, 'rb') as file:
+        reader = PyPDF2.PdfReader(file)
+        for page in reader.pages:
+            content += page.extract_text()
     return content
 
 def read_excel(file_path):
@@ -58,16 +38,23 @@ def read_csv(file_path):
 
 def read_docx(file_path):
     doc = Document(file_path)
-    return "\n".join([paragraph.text for paragraph in doc.paragraphs])
+    content = ""
+    for paragraph in doc.paragraphs:
+        content += paragraph.text + "\n"
+    return content
 
 def read_pptx(file_path):
     presentation = Presentation(file_path)
-    return "\n".join([shape.text for slide in presentation.slides for shape in slide.shapes if hasattr(shape, "text")])
+    content = ""
+    for slide in presentation.slides:
+        for shape in slide.shapes:
+            if shape.has_text_frame:
+                content += shape.text + "\n"
+    return content
 
 def read_image(file_path):
     image = Image.open(file_path)
-    pdf_path = image_to_pdf(image)  # Convert Image to PDF
-    return read_pdf(pdf_path)  # Process the generated PDF
+    return pytesseract.image_to_string(image)
 
 def read_file(file_path):
     if file_path.endswith('.txt'):
@@ -83,7 +70,7 @@ def read_file(file_path):
     elif file_path.endswith('.pptx'):
         return read_pptx(file_path)
     elif file_path.endswith(('.jpg', '.jpeg', '.png', '.tiff')):
-        return read_image(file_path)  # Process image as PDF
+        return read_image(file_path)
     else:
         return "Unsupported file type."
 
