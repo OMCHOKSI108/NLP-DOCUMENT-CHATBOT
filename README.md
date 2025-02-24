@@ -8,6 +8,11 @@ This project is a document-based chatbot built with **Streamlit** and **Cohere**
 
 ---
 
+## **Streamlit Deployement APP **
+[CLICK TO USE](https://document-nlp-chatbot-omchoksi-project0030.streamlit.app/).
+
+JPG and PNG is in Undermentenace 
+
 ## **Features**
 - Supports multiple file types:
   - Text files (`.txt`)
