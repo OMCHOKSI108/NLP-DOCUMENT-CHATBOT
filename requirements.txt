@@ -1,0 +1,9 @@
+streamlit
+pyngrok
+PyPDF2 
+pandas 
+python-docx 
+python-pptx 
+pytesseract 
+Pillow
+cohere
