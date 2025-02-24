@@ -9,10 +9,10 @@ from PIL import Image
 import os
 from pyngrok import ngrok
 import threading
-from config import config  # Import configuration
+from config import config   
 
-# Initialize Cohere API
-COHERE_API_KEY = config["COHERE_API_KEY"]  # Fetch Cohere API key from config
+ 
+COHERE_API_KEY = config["COHERE_API_KEY"]   
 co = cohere.Client(COHERE_API_KEY)
 
 # File parsers (no changes here)

@@ -1,0 +1,10 @@
+Cohere:
+
+-> CohereAI is technology company that provides on LLM for enterprise .
+   It provides LLM based Solution for help customer understand , generate 
+   and work with human Language . Through its services, organizations can 
+   automate  customer support generate content and extract insights from 
+   large Language volumes of text 
+
+
+   It is very similar with Google’s BERT or OpenAI’s GPT
