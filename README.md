@@ -142,7 +142,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 For questions or suggestions, please reach out to:
 
 - Email: OMCHOKSI108@GMAIL.COM
-- GitHub: [Your GitHub Profile](https://github.com/OMCHOKSI108)
+- GitHub: [OMCHOKSI108](https://github.com/OMCHOKSI108)
 
 ---
 
